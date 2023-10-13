@@ -1,0 +1,129 @@
+.login {
+    margin-bottom: 50px;
+    .login-top {
+        min-height: 100vh;
+        .account-info {
+            .title {
+                font-size: 25px;
+                font-family: "TiltNeon-Regular";
+                color: #0866ff;
+                font-weight: bold;
+            }
+            // flex-wrap: wrap;
+            .info-main {
+                width: 58%;
+                h2 {
+                    font-family: "TiltNeon-Regular";
+                    font-weight: 800;
+                    font-size: 60px;
+                    color: #0866ff;
+                }
+                .account-box {
+                    .item {
+                        width: 48%;
+                        min-height: 210px;
+                        background-color: #f5f6f7;
+                        border-radius: 10px;
+                        border: 1px solid rgb(77, 77, 164);
+
+                        .item_image {
+                            position: relative;
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                            height: 80%;
+                            background-size: cover;
+                            background-repeat: no-repeat;
+                            background-color: #c9ccd1;
+                            .sub-item {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                border-radius: 50%;
+                                width: 60px;
+                                height: 60px;
+                                background-size: contain;
+                            }
+                        }
+                        .item_name {
+                            height: 20%;
+                            background-color: #ffffff;
+                            border-bottom-left-radius: 10px;
+                            border-bottom-right-radius: 10px;
+                            .info-name {
+                                font-weight: 480;
+                            }
+                        }
+
+                        &:hover {
+                            box-shadow:
+                                5px 5px 10px rgb(177, 154, 154),
+                                -5px -5px 10px rgb(177, 154, 154);
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            .register-main {
+                padding: 20px;
+                width: 69%;
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: -1px 1px 7px grey;
+                .forgot-pass {
+                    color: rgb(77, 77, 164);
+
+                    & span:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+    /* Extra small devices (phones, 600px and down) */
+    @media only screen and (max-width: 600px) {
+        .register-main {
+            width: 100% !important;
+        }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) {
+        .register-main {
+            width: 100% !important;
+        }
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {
+        .info-main {
+            width: 100% !important;
+        }
+        .register-main {
+            width: 100% !important;
+        }
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {
+        .account-info {
+            padding-top: 7% !important;
+        }
+        .info-main {
+            width: 80% !important;
+        }
+        .register-main {
+            width: 80% !important;
+        }
+    }
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+        .info-main {
+            width: 58% !important;
+        }
+        .register-main {
+            width: 69% !important;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+.color-change {
+	-webkit-animation: color-change 5s linear infinite alternate both;
+	        animation: color-change 5s linear infinite alternate both;
+}
+@keyframes color-change {
+  0% {
+    background: #6C7DE2;
+  }
+  33% {
+    background: #92B9E5;
+  }
+  66% {
+    background: #FEC4A3;
+  }
+  100% {
+    background: #FCA2D1;
+  }
+}
