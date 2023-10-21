@@ -1,18 +1,70 @@
 .color-change {
-	-webkit-animation: color-change 5s linear infinite alternate both;
-	        animation: color-change 5s linear infinite alternate both;
+  -webkit-animation: color-change 5s linear infinite alternate both;
+  animation: color-change 5s linear infinite alternate both;
+}
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(45deg, rebeccapurple, rgba(102, 51, 153, 0.291));
+}
+.gradient-custom {
+  min-width: 800px;
+  .myfont {
+    font-weight: bold;
+  }
+  /* fallback for old browsers */
+  background: linear-gradient(
+    -45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(117, 34, 206, 0.8660057773109244) 9%,
+    rgba(115, 28, 185, 0.8912158613445378) 19%,
+    rgba(112, 20, 158, 0.7819721638655462) 32%,
+    rgba(127, 52, 137, 0.5018601190476191) 53%,
+    rgba(154, 147, 151, 0.11810661764705888) 100%
+  );
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+.card-registration .select-arrow {
+  top: 13px;
 }
 @keyframes color-change {
   0% {
-    background: #6C7DE2;
+    background: #6c7de2;
   }
   33% {
-    background: #92B9E5;
+    background: #92b9e5;
   }
   66% {
-    background: #FEC4A3;
+    background: #fec4a3;
   }
   100% {
-    background: #FCA2D1;
+    background: #fca2d1;
   }
 }

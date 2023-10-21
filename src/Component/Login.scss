@@ -1,5 +1,4 @@
 .login {
-    margin-bottom: 50px;
     .login-top {
         min-height: 100vh;
         .account-info {
@@ -80,6 +79,7 @@
             }
         }
     }
+
     /* Extra small devices (phones, 600px and down) */
     @media only screen and (max-width: 600px) {
         .register-main {

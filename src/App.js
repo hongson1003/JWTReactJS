@@ -1,5 +1,11 @@
 import './App.scss';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
 import Home from './Container/Client/Home';
 import Login from './Component/Login';
 // Bootstrap CSS
@@ -8,12 +14,18 @@ import 'bootstrap/scss/bootstrap.scss';
 function App() {
   return (
     <div className="App color-change">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" exact element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Redirect to="/" />
+
+        </Switch>
+      </Router>
     </div>
   );
 }
