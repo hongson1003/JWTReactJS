@@ -1,8 +1,14 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 let ContentModalLogin = (props) => {
-    console.log(props)
     let { closeModal, handleSetSubtitle } = props;
+    let [firstName, setFirstName] = useState('');
+    let [lastName, setLastName] = useState('');
+    let [address, setAddress] = useState('');
+    let [phone, setPhone] = useState('');
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
+    let [sex, setSex] = useState(1);
+
     return (
         <>
 
@@ -11,7 +17,6 @@ let ContentModalLogin = (props) => {
                 <button className='login-close d-flex justify-content-center align-items-center' onClick={closeModal}><i className="fa fa-window-close btn-btn-dark px-2 text-danger" aria-hidden="true"></i></button>
             </div>
             <div className='border-bottom p-3 gradient-custom'>
-
                 <section className="">
                     <div className="">
                         <div className="row justify-content-around align-items-center">
@@ -31,13 +36,19 @@ let ContentModalLogin = (props) => {
                                             <div className="row d-flex justify-content-around">
                                                 <div className="col-5 mb-3">
                                                     <div className="form-outline">
-                                                        <input type="text" id="firstName" className="form-control form-control-lg" placeholder='First Name' />
+                                                        <input type="text" id="firstName" className="form-control form-control-lg" placeholder='First Name'
+                                                            value={firstName}
+                                                            onChange={(e) => setFirstName(e.target.value)}
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-5 mb-3">
 
                                                     <div className="form-outline">
-                                                        <input type="text" id="lastName" className="form-control form-control-lg" placeholder='Last Name' />
+                                                        <input type="text" id="lastName" className="form-control form-control-lg" placeholder='Last Name'
+                                                            value={lastName}
+                                                            onChange={(e) => setLastName(e.target.value)}
+                                                        />
                                                     </div>
 
                                                 </div>
@@ -45,13 +56,19 @@ let ContentModalLogin = (props) => {
                                             <div className="row d-flex justify-content-around">
                                                 <div className="col-5 mb-3">
                                                     <div className="form-outline">
-                                                        <input type="text" id="address" className="form-control form-control-lg" placeholder='Address' />
+                                                        <input type="text" id="address" className="form-control form-control-lg" placeholder='Address'
+                                                            value={address}
+                                                            onChange={(e) => setAddress(e.target.value)}
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-5 mb-3">
 
                                                     <div className="form-outline">
-                                                        <input type="text" id="phone" className="form-control form-control-lg" placeholder='Phone' />
+                                                        <input type="text" id="phone" className="form-control form-control-lg" placeholder='Phone'
+                                                            value={phone}
+                                                            onChange={(e) => setPhone(e.target.value)}
+                                                        />
                                                     </div>
 
                                                 </div>
@@ -59,10 +76,16 @@ let ContentModalLogin = (props) => {
 
                                             <div className="row d-flex justify-content-around">
                                                 <div className="col-5 mb-3">
-                                                    <input type="email" id="emailAddress" className="form-control form-control-lg" placeholder='Email' />
+                                                    <input type="email" id="emailAddress" className="form-control form-control-lg" placeholder='Email'
+                                                        value={email}
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                    />
                                                 </div>
                                                 <div className="col-5 pb-3">
-                                                    <input type="password" id="password" className="form-control form-control-lg" placeholder='Password' />
+                                                    <input type="password" id="password" className="form-control form-control-lg" placeholder='Password'
+                                                        value={password}
+                                                        onChange={(e) => setPassword(e.target.value)}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -71,7 +94,7 @@ let ContentModalLogin = (props) => {
                                                     <div className=''>
                                                         <div className="form-check form-check-inline">
                                                             <input className="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                                                                value="option1" defaultChecked />
+                                                                value="option1" defaultChecked onChange={(e) => setSex(e.target.)} />
                                                             <label className="form-check-label" htmlFor="femaleGender">Female</label>
                                                         </div>
 
