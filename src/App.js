@@ -1,32 +1,42 @@
 import './App.scss';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
 } from "react-router-dom";
-
-import Home from './Container/Client/Home';
-import Login from './Component/Login';
-// Bootstrap CSS
+import AppRoutes from './routes/AppRoutes';
 import 'bootstrap/scss/bootstrap.scss';
+import Navigator from './Component/Navigator';
 
-function App() {
+const App = () => {
   return (
     <div className="App color-change">
       <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Redirect to="/" />
+        <div className='header'>
+          <Navigator />
+        </div>
+        <div className='main'>
+          <Switch>
+            <AppRoutes />
 
-        </Switch>
+          </Switch>
+        </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </Router>
-    </div>
+
+    </div >
   );
 }
 

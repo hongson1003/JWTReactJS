@@ -5,13 +5,23 @@ import plus from '../assets/image/plus.png';
 import Modal from 'react-modal';
 import React, { useState } from 'react';
 import ContentModalLogin from './Modal/ContentModalLogin';
+import appService from '../Services/appService';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import appAction from '../redux/actions/appAction';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 const Login = (props) => {
-
+    let history = useHistory();
     const [modalIsOpen, setIsOpen] = useState(false);
-
+    let dispatch = useDispatch();
+    let state = useSelector(state => state.appReducer);
+    useEffect(() => {
+        if (state.isLogin === true)
+            history.push('users');
+    })
     const customStyles = {
         content: {
-            maxWidth: '1200px',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -19,9 +29,11 @@ const Login = (props) => {
             borderRadius: '15px',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            background: 'linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(117,34,206,0.8660057773109244) 9%, rgba(115,28,185,0.8912158613445378) 19%, rgba(112,20,158,0.7819721638655462) 32%, rgba(127,52,137,0.5018601190476191) 53%, rgba(154,147,151,0.11810661764705888) 100%)'
+            background: 'linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(117,34,206,0.8660057773109244) 9%, rgba(115,28,185,0.8912158613445378) 19%, rgba(112,20,158,0.7819721638655462) 32%, rgba(127,52,137,0.5018601190476191) 53%, rgba(154,147,151,0.11810661764705888) 100%)',
         },
     };
+
+
     Modal.setAppElement('#root');
     let subtitle;
     let openModal = () => {
@@ -31,7 +43,6 @@ const Login = (props) => {
     let afterOpenModal = () => {
         // references are now sync'd and can be accessed.
         subtitle.style.color = '#fff';
-        console.log(subtitle)
     }
 
     let closeModal = (e) => {
@@ -40,13 +51,42 @@ const Login = (props) => {
     let [accountName, setAccountName] = useState('');
     let [password, setPassword] = useState('');
 
-    let handleLogin = () => {
+    let handleLogin = async () => {
         let account = {
             accountName,
             password
         }
-        console.log(account)
+        let check = checkValidate();
+        if (check === 0) {
+            let response = await appService.login(account);
+            if (response.data.errCode === 0) {
+                clearState();
+                dispatch(appAction.login());
+                history.push('/users');
+            } else {
+                toast.error('Vui lòng nhập đúng chính xác tài khoản và mật khẩu');
+            }
+        }
     }
+
+    let clearState = () => {
+        setAccountName('');
+        setPassword('');
+    }
+
+    let checkValidate = () => {
+        let arr = [{ key: 'accountName', value: accountName }, { key: 'password', value: password }];
+        let count = 0;
+        arr.forEach(item => {
+            if (item.value === '') {
+                document.getElementById(item.key).style.borderColor = 'red';
+                count++;
+            }
+        })
+        return count;
+    }
+
+
 
     let handleSetSubtitle = (sub) => {
         subtitle = sub;
@@ -83,23 +123,26 @@ const Login = (props) => {
                         <div className='text-center p-2 title d-md-none'>Facebook</div>
                         <div className='register-main'>
                             <form>
-                                <div className="form-outline mb-4">
-                                    <input
+                                <div className="form-outline mb-4" >
+                                    <input id='accountName'
                                         value={accountName}
                                         type="text"
                                         className="form-control py-3"
                                         placeholder='Email hoặc số điện thoại'
                                         onChange={(e) => setAccountName(e.target.value)}
+                                        onFocus={() => document.getElementById('accountName').style.borderColor = 'grey'}
                                     />
                                 </div>
 
                                 <div className="form-outline mb-4">
-                                    <input
+                                    <input id='password'
                                         value={password}
                                         type="password"
                                         className="form-control py-3"
                                         placeholder='Mật khẩu'
                                         onChange={(e) => setPassword(e.target.value)}
+                                        onFocus={() => document.getElementById('password').style.borderColor = 'grey'}
+                                        onKeyDown={(e) => (e.key === 'Enter' && handleLogin())}
                                     />
                                 </div>
 

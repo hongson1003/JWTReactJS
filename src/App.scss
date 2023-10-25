@@ -1,7 +1,12 @@
+// COLOR CHANGE
+
 .color-change {
   -webkit-animation: color-change 5s linear infinite alternate both;
   animation: color-change 5s linear infinite alternate both;
 }
+
+// REACT MODAL
+
 .ReactModal__Overlay {
   opacity: 0;
   transform: translateX(-100px);
@@ -25,8 +30,11 @@
   bottom: 0;
   background-image: linear-gradient(45deg, rebeccapurple, rgba(102, 51, 153, 0.291));
 }
+
+// CONTENT MODAL
+
 .gradient-custom {
-  min-width: 800px;
+  width: 750px;
   .myfont {
     font-weight: bold;
   }
@@ -66,5 +74,10 @@
   }
   100% {
     background: #fca2d1;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .gradient-custom {
+    width: auto;
   }
 }
