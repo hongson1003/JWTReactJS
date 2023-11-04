@@ -9,10 +9,11 @@ let PrivateRoute = (props) => {
     let state = useSelector(state => state.appReducer);
     let history = useHistory();
     useEffect(() => {
-        if (state.isLogin === false)
-            history.push('/login');
-    }, [state, history])
-    console.log('path', props.path, 'component', props.component);
+        if (window.location.pathname !== '/home') {
+            if (state.isLogin === false && props.path !== "/home")
+                history.push('/login');
+        }
+    }, [state, history, props.path])
     return (
         <Route path={props.path}>
             {props.component}

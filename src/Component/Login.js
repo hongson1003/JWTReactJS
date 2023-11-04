@@ -33,7 +33,9 @@ const Login = (props) => {
         },
     };
 
-
+    let handleSetSubtitle = (sub) => {
+        subtitle = sub;
+    }
     Modal.setAppElement('#root');
     let subtitle;
     let openModal = () => {
@@ -75,7 +77,7 @@ const Login = (props) => {
     }
 
     let checkValidate = () => {
-        let arr = [{ key: 'accountName', value: accountName }, { key: 'password', value: password }];
+        let arr = [{ key: 'accountName', value: accountName }, { key: 'accountPassword', value: password }];
         let count = 0;
         arr.forEach(item => {
             if (item.value === '') {
@@ -88,9 +90,7 @@ const Login = (props) => {
 
 
 
-    let handleSetSubtitle = (sub) => {
-        subtitle = sub;
-    }
+
     return (
         <div className="login">
             <div className='login-top container'>
@@ -135,13 +135,13 @@ const Login = (props) => {
                                 </div>
 
                                 <div className="form-outline mb-4">
-                                    <input id='password'
+                                    <input id='accountPassword'
                                         value={password}
                                         type="password"
                                         className="form-control py-3"
                                         placeholder='Mật khẩu'
                                         onChange={(e) => setPassword(e.target.value)}
-                                        onFocus={() => document.getElementById('password').style.borderColor = 'grey'}
+                                        onFocus={() => document.getElementById('accountPassword').style.borderColor = 'grey'}
                                         onKeyDown={(e) => (e.key === 'Enter' && handleLogin())}
                                     />
                                 </div>
@@ -174,6 +174,7 @@ const Login = (props) => {
                 shouldCloseOnOverlayClick={false}
                 closeTimeoutMS={1000}
                 overlayclassName="Overlay"
+            className={'login-modal'}
             >
                 <ContentModalLogin
                     handleSetSubtitle={handleSetSubtitle}

@@ -19,14 +19,8 @@ const AppRoutes = () => {
             <Route path="/login">
                 <Login />
             </Route>
-            {/* <Route path="/users">
-                <ManageUsers />
-            </Route>
-            <Route path="/project">
-                <ManageProject />
-            </Route> */}
-            <PrivateRoute path="/users" component={<ManageUsers />}/>
-            <PrivateRoute path="/project" component={ <ManageProject />} />
+            <PrivateRoute path="/users" component={<ManageUsers />} />
+            <PrivateRoute path="/project" component={<ManageProject />} />
         </>
     )
 }

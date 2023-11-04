@@ -50,6 +50,7 @@ let ContentModalLogin = (props) => {
         let count = 0;
         let temp = [{ key: 'firstName', value: firstName }, { key: 'lastName', value: lastName }, { key: 'address', value: address }, { key: 'phone', value: phone }, { key: 'email', value: email }, { key: 'password', value: password }];
         temp.forEach(item => {
+            console.log(document.getElementById(item.key))
             if (item.value === '') {
                 count++;
                 document.getElementById(item.key).style.borderColor = 'red';

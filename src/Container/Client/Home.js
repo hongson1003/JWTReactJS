@@ -2,6 +2,8 @@ import { useHistory } from "react-router-dom";
 import './Home.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { addItem, deleteItem } from "../../redux/actions/cartAction";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 const Home = (props) => {
@@ -10,7 +12,16 @@ const Home = (props) => {
         history.push('/login');
     }
     const state = useSelector((state) => state.cartReducer);
+    const [count, setCount] = useState(1);
     const dispatch = useDispatch();
+    useEffect(() => {
+        console.log('Number of counts: ', count);
+    }, [count])
+
+    const handleOnTang = () => {
+        setCount(count + 1);
+    };
+
     return (
         <>
             <div className="home">
@@ -29,6 +40,11 @@ const Home = (props) => {
                             dispatch(deleteItem());
                         }}
                     >Remove Item from Cart</button>
+                </div>
+                <div className="test d-flex justify-content-center">
+                    <button className="btn btn-primary"
+                        onClick={() => handleOnTang()}
+                    >Tăng</button>
                 </div>
             </div>
         </>

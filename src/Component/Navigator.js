@@ -15,7 +15,6 @@ let Navigator = () => {
         <>
             {
                 state.isLogin === true &&
-
                 <div className="topnav d-flex justify-content-between">
                     <div>
                         <NavLink activeClassName='active' to="/users">Users</NavLink>

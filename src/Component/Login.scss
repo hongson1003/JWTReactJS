@@ -127,3 +127,24 @@
         }
     }
 }
+
+.login-modal {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    border: 1px solid rgb(204, 204, 204);
+    background: linear-gradient(
+        135deg,
+        rgb(2, 0, 36) 0%,
+        rgba(117, 34, 206, 0.867) 9%,
+        rgba(115, 28, 185, 0.89) 19%,
+        rgba(112, 20, 158, 0.78) 32%,
+        rgba(127, 52, 137, 0.5) 53%,
+        rgba(154, 147, 151, 0.118) 100%
+    );
+    overflow: auto;
+    border-radius: 15px;
+    outline: none;
+    padding: 20px;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
