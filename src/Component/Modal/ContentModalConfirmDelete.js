@@ -30,9 +30,9 @@ let ContentModalConfirmDelete = (props) => {
             </div>
             <footer className='mt-2 d-flex justify-content-end'>
                 <button className='btn btn-success mx-2'
-                    onClick={(e) => {
-                        handleDeleteUser();
-                        closeModal(e)
+                    onClick={() => {
+                        handleDeleteUser(props.user.userID);
+                        closeModal()
                     }}
                 >Xác nhận</button>
                 <button onClick={(e) => closeModal(e)} className='btn btn-danger'>Hủy bỏ</button>

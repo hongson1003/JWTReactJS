@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './ManageUsers.scss'
 import adminService from '../../Services/adminService';
-import ContentModalCreateNewUser from '../../Component/Modal/ContentModalCreateNewUser';
+import ContentModalCUUser from '../../Component/Modal/ContentModalCUUser';
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 import ContentModalConfirmDelete from '../../Component/Modal/ContentModalConfirmDelete';
@@ -48,8 +48,8 @@ const ManageUsers = () => {
     const itemsPerPage = 3;
     const [itemOffset, setItemOffset] = useState(0);
     const [items, setItems] = useState([]);
-    const [totalRows, setTotalRows] = useState(0);
-
+    const [totalPages, setTotalPages] = useState(0);
+    const [rows, setRows] = useState(0);
     // Invoke when user click to request another page.
     const handlePageClick = async (event) => {
         const newOffset = (event.selected * itemsPerPage);
@@ -59,23 +59,53 @@ const ManageUsers = () => {
 
     // Sử dụng handleFetchUser trong useEffect
     useEffect(() => {
+        let isMounted = true;
         const fetchUsers = async () => {
             try {
-                let response = await adminService.getUserWithPage(itemsPerPage, itemOffset);
-                await setItems(response.data.data.users);
-                await setTotalRows(Math.ceil(response.data.data.rows / itemsPerPage));
+                const response = await adminService.getUserWithPage(itemsPerPage, itemOffset);
+                if (isMounted) {
+                    if (response.errCode === 0) {
+                        setItems(response.data.users);
+                        setRows(response.data.rows);
+                        setTotalPages(Math.ceil(response.data.rows / itemsPerPage));
+                    } else {
+                        toast.error('Bạn không có quyền xem danh sách người dùng !!!')
+                    }
+                }
             } catch (e) {
                 console.log(e);
             }
         }
-        fetchUsers();
-    }, [itemOffset, totalRows]);
 
-    let handleDeleteUser = async () => {
-        let response = await adminService.deleteUserWithID(userDelete.UserID);
-        if (response.data.errCode === 0) {
-            setTotalRows(totalRows - 1);
-            toast.success('Xóa người dùng thành công');
+        const changeItemSet = () => {
+            if (isMounted && itemOffset !== 0 && rows !== 0) {
+                if (itemOffset >= rows) {
+                    setItemOffset(itemOffset - itemsPerPage);
+                }
+            }
+        }
+
+        fetchUsers();
+        changeItemSet();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [itemOffset, rows]);
+
+
+
+    let handleDeleteUser = async (id) => {
+        try {
+            let response = await adminService.deleteUserWithID(id);
+            if (response.errCode === 0) {
+                setRows(rows - 1);
+                toast.success('Xóa người dùng thành công');
+            } else {
+                toast.error('Xóa người dùng thất bại !!!');
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
     let openModalDeleteUser = (id) => {
@@ -84,7 +114,15 @@ const ManageUsers = () => {
 
     let handleCreateNewUser = async (user) => {
         let response = await adminService.createNewUser(user);
-        return response;
+        if (response.errCode === 0) {
+            setRows(rows + 1);
+            return true;
+        } else if (response.errCode === 403) {
+            toast.error('Bạn không có quyền tạo người dùng !!!')
+        } else {
+            toast.error('Tạo người dùng thất bại !!!');
+        }
+        return false;
     }
     let openEdit = () => {
         setIsOpen(true);
@@ -92,7 +130,13 @@ const ManageUsers = () => {
     }
 
     let handleEditUser = async (data) => {
-
+        let response = await adminService.updateUser(data);
+        if (response.errCode === 0) {
+            let response = await adminService.getUserWithPage(itemsPerPage, itemOffset);
+            setItems(response.data.users);
+            return true;
+        }
+        return false;
     }
     return (
         <>
@@ -136,6 +180,7 @@ const ManageUsers = () => {
                                                 onClick={() => {
                                                     openEdit();
                                                     setUserEdit(item);
+                                                    console.log(item)
                                                 }}
                                             ><i className="fa fa-pencil" aria-hidden="true"></i></button>
                                             <button className='btn btn-danger'
@@ -158,7 +203,7 @@ const ManageUsers = () => {
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={2}
                     marginPagesDisplayed={3}
-                    pageCount={totalRows}
+                    pageCount={totalPages}
                     previousLabel="< previous"
                     pageClassName="page-item"
                     pageLinkClassName="page-link"
@@ -186,11 +231,12 @@ const ManageUsers = () => {
                 overlayclassName="Overlay"
                 className={'manageuser-modal'}
             >
-                <ContentModalCreateNewUser
+                <ContentModalCUUser
                     status={status}
                     handleSetSubtitle={handleSetSubtitle}
                     closeModal={closeModal}
                     handleCreateNewUser={handleCreateNewUser}
+                    handleEditUser={handleEditUser}
                     user={userEdit}
                 />
             </Modal >
@@ -203,7 +249,6 @@ const ManageUsers = () => {
                 shouldCloseOnOverlayClick={false}
                 closeTimeoutMS={1000}
                 overlayclassName="Overlay"
-            // className={'modal-confirm'}
             >
                 <ContentModalConfirmDelete
                     closeModal={closeModal}

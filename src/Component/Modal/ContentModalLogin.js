@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import appService from "../../Services/appService";
 import { toast } from "react-toastify";
 let ContentModalLogin = (props) => {
@@ -24,7 +24,7 @@ let ContentModalLogin = (props) => {
         let err = isEmpty();
         if (!err) {
             let response = await appService.createNewUser(account);
-            if (response.data.errCode === 0) {
+            if (response.errCode === 0) {
                 toast.success('Tạo tài khoản thành công ><')
                 clearState();
                 closeModal();

@@ -1,8 +1,11 @@
 import { LOGIN_SUCCESS, LOGIN_OUT } from "../actionTypes/actionTypes"
-const login = () => {
+const login = (token) => {
     return {
         type: LOGIN_SUCCESS,
-        payload: true,
+        payload: {
+            login: true,
+            token: token
+        },
     }
 }
 

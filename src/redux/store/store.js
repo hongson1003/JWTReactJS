@@ -1,20 +1,11 @@
-import { createStore } from "redux";
-import rootReducer from "../reducers/rootReducer";
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// Trong tệp store.js
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from '../reducers/rootReducer';
+import authMiddleware from '../../middleware/authMiddleware';
 
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+const store = createStore(rootReducer, applyMiddleware(authMiddleware));
 
-const persistConfig = {
-    key: 'root',
-    storage: storage,
-    stateReconciler: autoMergeLevel2,// Xem thêm tại mục "Quá trình merge".
-    whitelist: ['appReducer']
-};
-
-const pReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = createStore(pReducer);
-export const persistor = persistStore(store);
+// Dispatch một action để thông báo rằng Redux store đã được khởi động
+store.dispatch({ type: 'REDUX_INITIALIZED' });
 
 export default store;

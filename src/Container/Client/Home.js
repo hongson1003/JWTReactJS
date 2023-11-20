@@ -3,7 +3,6 @@ import './Home.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { addItem, deleteItem } from "../../redux/actions/cartAction";
 import { useState } from "react";
-import { useEffect } from "react";
 
 
 const Home = (props) => {
@@ -14,9 +13,9 @@ const Home = (props) => {
     const state = useSelector((state) => state.cartReducer);
     const [count, setCount] = useState(1);
     const dispatch = useDispatch();
-    useEffect(() => {
-        console.log('Number of counts: ', count);
-    }, [count])
+
+
+
 
     const handleOnTang = () => {
         setCount(count + 1);

@@ -4,6 +4,14 @@
   -webkit-animation: color-change 5s linear infinite alternate both;
   animation: color-change 5s linear infinite alternate both;
 }
+.loading-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  flex-direction: column;
+}
 
 // REACT MODAL
 
@@ -85,4 +93,9 @@
   .gradient-custom {
     width: auto;
   }
+}
+
+.header {
+  position: fixed;
+  width: 100%;
 }

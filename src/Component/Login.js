@@ -61,13 +61,18 @@ const Login = (props) => {
         let check = checkValidate();
         if (check === 0) {
             let response = await appService.login(account);
-            if (response.data.errCode === 0) {
+            if (response.errCode === 0) {
                 clearState();
-                dispatch(appAction.login());
+                console.log()
+                dispatch(appAction.login(response.data.access));
                 history.push('/users');
-            } else {
-                toast.error('Vui lòng nhập đúng chính xác tài khoản và mật khẩu');
+            } else if (response.errCode === 2) {
+                toast.error('Vui lòng đăng ký tài khoản !!!');
+            } else if (response.errCode === 1) {
+                toast.error('Vui lòng nhập chính xác mật khẩu');
             }
+        } else {
+            toast.error('Vui lòng nhập đúng chính xác tài khoản và mật khẩu');
         }
     }
 
@@ -174,7 +179,7 @@ const Login = (props) => {
                 shouldCloseOnOverlayClick={false}
                 closeTimeoutMS={1000}
                 overlayclassName="Overlay"
-            className={'login-modal'}
+                className={'login-modal'}
             >
                 <ContentModalLogin
                     handleSetSubtitle={handleSetSubtitle}

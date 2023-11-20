@@ -1,0 +1,22 @@
+.manage-group-role {
+    padding: 20px;
+    padding-top: 55px;
+    height: 100vh;
+    .main-container {
+        padding: 0 10%;
+        label {
+            text-indent: 15px;
+            font-weight: bold;
+        }
+        .assign-role {
+            font-weight: bold;
+            margin-bottom: 0px;
+        }
+        .role-setup {
+            margin: 3px 5px;
+            input {
+                transform: scale(1.5);
+            }
+        }
+    }
+}
